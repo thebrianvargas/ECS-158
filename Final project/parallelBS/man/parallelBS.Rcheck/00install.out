@@ -1,0 +1,10 @@
+* installing *source* package ‘parallelBS’ ...
+** R
+** preparing package for lazy loading
+** help
+Warning: /home/mrnbdusk/parallelBS/man/parallelBS.Rcheck/00_pkg_src/parallelBS/man/parallelBS-package.Rd:33: All text must be in a section
+Warning: /home/mrnbdusk/parallelBS/man/parallelBS.Rcheck/00_pkg_src/parallelBS/man/parallelBS-package.Rd:34: All text must be in a section
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (parallelBS)
