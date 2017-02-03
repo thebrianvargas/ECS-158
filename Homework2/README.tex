@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{algorithm}
+
+\usepackage{algpseudocode}
+\title{ECS158 Homework \#2 \\ README}
+\author{Brian Vargas, Max Matsumoto, Michael Banzon, Mark Fan}
+\date{February 13, 2015}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+\maketitle
+
+In running our \emph{rmandel} function, we compared the time elapsed for using different scheduling in the OpenMP sections of the C++ code in attempt to find which is best to use in practice. Alongside varying chunk sizes, we explored timings for the four different scheduling types: static, dynamic, auto, and guided.
+\\ \\
+The following tables represent our results in the timings. The following parameters were used: -4, 4, -4, 4, .01, 1000
+\\ \\
+\textbf{Static} \\
+\begin{tabular}{l|l l l l l}
+\hline Chunk Size&4&8&16&256&65536 \\ \hline
+Trial 1&0.591&0.591&0.591&0.482&0.482 \\
+Trial 2&0.594&0.625&0.481&0.594&0.590 \\
+Trial 3&0.481&0.483&0.600&0.482&0.483 \\
+Trial 4&0.485&0.482&0.481&0.596&0.481 \\
+Average&0.573&0.545&0.538&0.538&0.509 \end{tabular}
+
+\textbf{Dynamic} \\
+\begin{tabular}{l|l l l l l}
+\hline Chunk Size&4&8&16&256&65536 \\ \hline
+Trial 1&0.482&0.590&0.595&0.481&0.481 \\
+Trial 2&0.594&0.592&0.482&0.590&0.485 \\
+Trial 3&0.594&0.481&0.594&0.590&0.602 \\
+Trial 4&0.481&0.595&0.608&0.592&0.595 \\
+Average&0.537&0.564&0.596&0.564&0.540 \end{tabular}
+
+\textbf{Auto} \\
+\begin{tabular}{l|l l l l l}
+\hline Chunk Size&4&8&16&256&65536 \\ \hline
+Trial 1&0.482&0.603&0.593&0.594&0.591 \\
+Trial 2&0.482&0.482&0.482&0.483&0.482 \\
+Trial 3&0.591&0.592&0.591&0.593&0.594 \\
+Trial 4&0.482&0.594&0.482&0.484&0.595 \\
+Average&0.509&0.567&0.537&0.538&0.565
+\end{tabular}
+
+\newpage
+\textbf{Guided} \\
+\begin{tabular}{l|l l l l l}
+\hline Chunk Size&4&8&16&256&65536 \\ \hline
+Trial 1&0.637&0.481&0.590&0.595&0.590 \\
+Trial 2&0.591&0.594&0.591&0.597&0.486 \\
+Trial 3&0.594&0.605&0.482&0.594&0.591 \\
+Trial 4&0.543&0.594&0.481&0.590&0.481 \\
+Average&0.603&0.568&0.563&0.594&0.537
+\end{tabular}
+\\ \\
+These tables can be summarized by looking at the following plot of average timings. Note the following color coding: static-red, dynamic-blue, auto-black, guided-green.
+\begin{center} \includegraphics[scale=.48]{plot1.jpeg} \end{center}
+
+By observing the average times for the chunk size chosen, with the various types of
+scheduling, it appears that our best time was achieved when our chunk size was
+$2^{16}=65536$ and under the static schedule. This was used to create the optimal function mandelopt().
+\\ \\
+An interesting observation is that dynamic had the greatest decrease in
+time from chunk size 4 to chunk size 8. Perhaps with much larger chunks, guided
+ends up the same as or better than static.
+\\ \\
+Still, we should conclude that our optimal set up is with chunk size 65536 and schedule
+type static for the sample we used. In general, we would want to set the chunk size according to the parameters - some parameters may call for a tiny process and this chunk size would be too large. However, it is agreeable that static was the better scheduling type.
+\\ \\
+As reference, the following image shows our code's resulting Mandelbrot image.
+\includepdf{Rplots.pdf}
+
+\end{document}
